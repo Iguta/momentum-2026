@@ -1,34 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useMemo, useState } from 'react'
+import Sidebar from './components/Sidebar'
+import CalendarPage from './pages/CalendarPage'
+import DashboardPage from './pages/DashboardPage'
+import GoalsPage from './pages/GoalsPage'
+import TasksPage from './pages/TasksPage'
 import './App.css'
 
+const NAV_ITEMS = [
+  { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+  { id: 'tasks', label: 'Tasks', icon: '✅' },
+  { id: 'goals', label: 'Goals', icon: '🎯' },
+  { id: 'calendar', label: 'Calendar', icon: '🗓️' },
+]
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [active, setActive] = useState('dashboard')
+
+  const page = useMemo(() => {
+    switch (active) {
+      case 'tasks':
+        return <TasksPage />
+      case 'goals':
+        return <GoalsPage />
+      case 'calendar':
+        return <CalendarPage />
+      default:
+        return <DashboardPage />
+    }
+  }, [active])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app-shell">
+      <Sidebar items={NAV_ITEMS} active={active} onSelect={setActive} />
+      <main className="app-main">{page}</main>
+    </div>
   )
 }
 
