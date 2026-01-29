@@ -1,0 +1,55 @@
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.calendar-grid__weekday {
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(148, 163, 184, 0.8);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.calendar-grid__day {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 16px;
+  min-height: 84px;
+  padding: 0.5rem;
+  text-align: left;
+  color: rgba(226, 232, 240, 0.8);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.calendar-grid__day:hover {
+  transform: translateY(-2px);
+  border-color: rgba(110, 231, 249, 0.5);
+}
+
+.calendar-grid__day.has-tasks {
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.calendar-grid__day.is-selected {
+  transform: scale(1.04);
+  border-color: rgba(129, 140, 248, 0.8);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.4);
+}
+
+.calendar-grid__day.is-muted {
+  opacity: 0.4;
+}
+
+.calendar-grid__badge {
+  font-size: 0.7rem;
+  background: rgba(129, 140, 248, 0.2);
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+  align-self: flex-start;
+}
